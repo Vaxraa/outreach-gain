@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 export default function ROICalculator() {
   const [volume, setVolume] = useState(15000)
   const [replyRate, setReplyRate] = useState(12)
@@ -32,7 +30,7 @@ export default function ROICalculator() {
                 step="1000"
                 value={volume}
                 onChange={(e) => setVolume(parseInt(e.target.value))}
-                className="w-full"
+                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
               />
             </div>
 
@@ -48,7 +46,7 @@ export default function ROICalculator() {
                 step="0.5"
                 value={replyRate}
                 onChange={(e) => setReplyRate(parseFloat(e.target.value))}
-                className="w-full"
+                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
               />
             </div>
 
@@ -64,7 +62,7 @@ export default function ROICalculator() {
                 step="1000"
                 value={dealValue}
                 onChange={(e) => setDealValue(parseInt(e.target.value))}
-                className="w-full"
+                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
               />
             </div>
 
@@ -77,7 +75,7 @@ export default function ROICalculator() {
                 </div>
                 <div>
                   <p className="text-gray-600 text-sm">OutreachGain:</p>
-                  <p className="text-lg font-bold text-green-600">₹299/mo</p>
+                  <p className="text-lg font-bold text-green-600">$299/mo</p>
                 </div>
               </div>
             </div>
@@ -104,7 +102,7 @@ export default function ROICalculator() {
               </div>
 
               <button className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-                Start Free Trial
+                Start Free Trial with This Volume
               </button>
             </div>
           </div>

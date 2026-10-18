@@ -1,78 +1,68 @@
 import { useState } from 'react'
 
 export default function SocialProof() {
-  const [activeCase, setActiveCase] = useState(0)
+  const [activeCase, setActiveCase] = useState(1)
 
-  const caseStudies = [
+  const cases = [
     {
-      company: 'TechCorp',
-      result: '340 qualified meetings',
-      quote: 'OutreachGain helped us scale outreach without hiring more SDRs. The personalization is insane.',
-      author: 'Sarah Chen, VP Sales'
+      id: 1,
+      company: 'TechCorp SaaS',
+      result: '4x Pipeline Increase',
+      quote: 'OutreachGain replaced our 3 manual tools and doubled meetings in 60 days.',
+      author: 'Michael Vance, VP Sales'
     },
     {
-      company: 'GrowthAgency',
-      result: '$2.1M pipeline generated',
-      quote: 'We use this for every client now. The ROI is undeniable compared to manual outreach.',
-      author: 'Marcus Johnson, Founder'
+      id: 2,
+      company: 'GrowthAgency Pro',
+      result: '140+ Meetings/Month',
+      quote: 'Managing 30+ client accounts became effortless with automated warmup.',
+      author: 'Sarah Lin, Founder'
     },
     {
-      company: 'ScaleFlow',
-      result: '18% reply rate (vs 4% avg)',
-      quote: 'The AI personalization feels natural. Our prospects actually respond instead of ignoring.',
-      author: 'Elena Rodriguez, Head of Growth'
+      id: 3,
+      company: 'ScaleFlow AI',
+      result: '18.9% Reply Rate',
+      quote: 'Trigger signal enrichment boosted our reply rate by 5x.',
+      author: 'David Miller, Head of Revenue'
     }
   ]
 
-  const current = caseStudies[activeCase]
+  const active = cases.find(c => c.id === activeCase)
 
   return (
-    <section className="py-20 px-4 bg-gray-50">
-      <div className="max-w-4xl mx-auto">
+    <section className="py-20 px-4 bg-gray-50 border-y border-gray-200">
+      <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">Trusted by Sales Teams</h2>
-          <p className="text-xl text-gray-600">See how teams are scaling outreach with OutreachGain.</p>
+          <p className="text-xl text-gray-600">See how customers are using OutreachGain.</p>
         </div>
 
-        <div className="bg-white rounded-2xl border border-gray-200 p-12 shadow-lg">
-          <div className="mb-12">
-            <p className="text-sm uppercase tracking-wider font-semibold text-blue-600 mb-2">Case Study</p>
-            <h3 className="text-3xl font-bold text-gray-900 mb-2">{current.company}</h3>
-            <p className="text-2xl font-bold text-blue-600">{current.result}</p>
-          </div>
-
-          <blockquote className="mb-12">
-            <p className="text-xl text-gray-700 italic leading-relaxed mb-6">"{current.quote}"</p>
-            <footer className="text-gray-600 font-semibold">{current.author}</footer>
-          </blockquote>
-
-          <div className="flex gap-3 justify-center">
-            {caseStudies.map((_, i) => (
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* Case Study Selector */}
+          <div className="space-y-4">
+            {cases.map((cs) => (
               <button
-                key={i}
-                onClick={() => setActiveCase(i)}
-                className={`w-3 h-3 rounded-full transition ${
-                  i === activeCase ? 'bg-blue-600' : 'bg-gray-300 hover:bg-gray-400'
+                key={cs.id}
+                onClick={() => setActiveCase(cs.id)}
+                className={`w-full text-left p-4 rounded-lg border-2 transition ${
+                  activeCase === cs.id
+                    ? 'bg-blue-50 border-blue-600'
+                    : 'bg-white border-gray-200 hover:border-gray-300'
                 }`}
-                aria-label={`Case study ${i + 1}`}
-              />
+              >
+                <div className="text-sm font-semibold text-blue-600">{cs.company}</div>
+                <div className="text-lg font-bold text-gray-900 mt-1">{cs.result}</div>
+              </button>
             ))}
           </div>
-        </div>
 
-        <div className="mt-12 grid md:grid-cols-3 gap-6">
-          <div className="text-center p-6 bg-white rounded-lg border border-gray-200">
-            <p className="text-4xl font-bold text-blue-600 mb-2">2,400+</p>
-            <p className="text-gray-600">Active users</p>
-          </div>
-          <div className="text-center p-6 bg-white rounded-lg border border-gray-200">
-            <p className="text-4xl font-bold text-blue-600 mb-2">12M+</p>
-            <p className="text-gray-600">Emails generated</p>
-          </div>
-          <div className="text-center p-6 bg-white rounded-lg border border-gray-200">
-            <p className="text-4xl font-bold text-blue-600 mb-2">4.9★</p>
-            <p className="text-gray-600">Average rating</p>
-          </div>
+          {/* Case Study Details */}
+          {active && (
+            <div className="bg-white p-8 rounded-lg border border-gray-200">
+              <p className="text-gray-600 mb-4">"{active.quote}"</p>
+              <p className="text-sm font-semibold text-gray-900">{active.author}</p>
+            </div>
+          )}
         </div>
       </div>
     </section>
