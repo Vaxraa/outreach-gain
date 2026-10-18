@@ -8,9 +8,8 @@ import CTA from './components/CTA'
 import Footer from './components/Footer'
 import FAQ from './components/FAQ'
 import PrivacyTrust from './components/PrivacyTrust'
-import ROICalculator from './components/ROICalculator'
-import SocialProof from './components/SocialProof'
-import WorkflowSteps from './components/WorkflowSteps'
+import ROISection from './components/ROISection'
+import TestimonialSection from './components/TestimonialSection'
 
 export default function App() {
   const [showApp, setShowApp] = useState(false)
@@ -25,9 +24,8 @@ export default function App() {
       <Hero onGetStarted={() => setShowApp(true)} />
       <Features />
       <HowItWorks />
-      <WorkflowSteps />
-      <ROICalculator />
-      <SocialProof />
+      <ROISection />
+      <TestimonialSection />
       <Pricing />
       <FAQ />
       <PrivacyTrust />
@@ -37,7 +35,7 @@ export default function App() {
   )
 }
 
-// App page (email generation interface)
+// Email generation app
 function AppPage({ onBack }) {
   const [csvData, setCsvData] = useState('')
   const [leads, setLeads] = useState([])
@@ -45,7 +43,7 @@ function AppPage({ onBack }) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
-  const [step, setStep] = useState('upload') // 'upload', 'preview', 'results'
+  const [step, setStep] = useState('upload')
   const [copiedIdx, setCopiedIdx] = useState(null)
 
   const validateAndParse = () => {
@@ -171,7 +169,6 @@ function AppPage({ onBack }) {
       </div>
 
       <div className="max-w-4xl mx-auto px-4 py-8">
-        {/* Step Indicator */}
         <div className="flex gap-2 mb-8">
           {['upload', 'preview', 'results'].map((s, i) => (
             <div key={s} className="flex items-center gap-2">
@@ -185,7 +182,6 @@ function AppPage({ onBack }) {
           ))}
         </div>
 
-        {/* Upload Step */}
         {step === 'upload' && (
           <div className="bg-white rounded-lg border border-gray-200 p-8 shadow-sm">
             <h2 className="text-2xl font-bold mb-2 text-gray-900">Upload Your Leads</h2>
@@ -212,7 +208,6 @@ function AppPage({ onBack }) {
           </div>
         )}
 
-        {/* Preview Step */}
         {step === 'preview' && (
           <div className="bg-white rounded-lg border border-gray-200 p-8 shadow-sm">
             <h2 className="text-2xl font-bold mb-2 text-gray-900">Review Leads</h2>
@@ -257,7 +252,6 @@ function AppPage({ onBack }) {
           </div>
         )}
 
-        {/* Results Step */}
         {step === 'results' && (
           <div className="bg-white rounded-lg border border-gray-200 p-8 shadow-sm">
             <div className="flex justify-between items-center mb-6">
