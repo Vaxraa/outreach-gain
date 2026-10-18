@@ -1,51 +1,53 @@
 export default function Features() {
   const features = [
     {
-      icon: '⚡',
-      title: 'Lightning Fast',
-      desc: 'Generate 100 personalized emails in under 1 minute'
+      icon: '📋',
+      title: 'CSV Lead Import',
+      desc: 'Upload leads with name, company, and role. We handle the rest.'
     },
     {
-      icon: '🎯',
-      title: 'Personalized',
-      desc: 'Each email feels handwritten, not templated'
+      icon: '✏️',
+      title: 'Editable Drafts',
+      desc: 'Review each email before sending. Edit tone, length, or content.'
     },
     {
-      icon: '💰',
-      title: '100% Free to Start',
-      desc: '50 emails/month free. No credit card needed'
+      icon: '📋',
+      title: 'Bulk Export',
+      desc: 'Download all emails as CSV or copy-paste individual drafts.'
     },
     {
-      icon: '📥',
-      title: 'Simple CSV Upload',
-      desc: 'Just upload your leads. No complex setup'
+      icon: '🔐',
+      title: 'Your Data, Your Control',
+      desc: 'Leads are never stored or sold. Generated emails are yours.'
     },
     {
-      icon: '📊',
-      title: 'Better Open Rates',
-      desc: 'Personalized emails get 3-5x higher open rates'
+      icon: '⚙️',
+      title: 'Simple Setup',
+      desc: 'No API keys or complex configuration. Paste CSV and generate.'
     },
     {
-      icon: '🔄',
-      title: 'Export Anywhere',
-      desc: 'Download emails as CSV or copy-paste to Gmail'
+      icon: '💼',
+      title: 'Works With Any Tool',
+      desc: 'Export to Gmail, HubSpot, Lemlist, or paste into your CRM.'
     }
   ]
 
   return (
-    <section className="py-16 px-4 bg-white">
+    <section className="py-20 px-4 bg-gray-50 border-y border-gray-200">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl font-bold text-center mb-4">Why OutreachGain?</h2>
-        <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-          Better results. Faster outreach. Zero cost to start.
-        </p>
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold mb-4">Core Features</h2>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Everything you need to generate and manage personalized cold emails.
+          </p>
+        </div>
 
         <div className="grid md:grid-cols-3 gap-8">
           {features.map((f, i) => (
-            <div key={i} className="p-6 bg-gray-50 rounded-lg hover:shadow-lg transition">
-              <div className="text-4xl mb-3">{f.icon}</div>
-              <h3 className="text-xl font-bold mb-2">{f.title}</h3>
-              <p className="text-gray-600">{f.desc}</p>
+            <div key={i} className="p-6 bg-white rounded-lg border border-gray-200 hover:shadow-md transition">
+              <div className="text-3xl mb-3">{f.icon}</div>
+              <h3 className="text-lg font-bold mb-2 text-gray-900">{f.title}</h3>
+              <p className="text-gray-600 text-sm leading-relaxed">{f.desc}</p>
             </div>
           ))}
         </div>

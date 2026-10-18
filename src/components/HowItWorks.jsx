@@ -2,59 +2,72 @@ export default function HowItWorks() {
   const steps = [
     {
       num: '1',
-      title: 'Upload CSV',
-      desc: 'Name, Company, Role - that\'s all we need'
+      title: 'Upload Your CSV',
+      desc: 'Import lead details: name, company, role, and any context that makes emails more personalized.'
     },
     {
       num: '2',
-      title: 'AI Generates',
-      desc: 'Personalized emails created in seconds'
+      title: 'Generate Personalized Drafts',
+      desc: 'Our system creates relevant email subject lines and messages for each lead.'
     },
     {
       num: '3',
-      title: 'Copy & Send',
-      desc: 'Paste into Gmail, HubSpot, Lemlist, or any tool'
+      title: 'Review and Export',
+      desc: 'Edit drafts as needed, copy individual emails, or download everything as CSV.'
     }
   ]
 
   return (
-    <section className="py-16 px-4 bg-gray-50">
+    <section className="py-20 px-4 bg-white" id="how-it-works">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl font-bold text-center mb-12">How It Works</h2>
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold mb-4">How It Works</h2>
+          <p className="text-xl text-gray-600">Three simple steps to personalized cold emails.</p>
+        </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
           {steps.map((step, i) => (
-            <div key={i} className="text-center">
-              <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
-                {step.num}
+            <div key={i} className="relative">
+              {i < steps.length - 1 && (
+                <div className="hidden md:block absolute top-8 left-1/2 w-1/3 h-1 bg-gray-200 transform translate-x-1/2"></div>
+              )}
+              <div className="relative z-10">
+                <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold shadow-md">
+                  {step.num}
+                </div>
+                <h3 className="text-xl font-bold mb-3 text-center text-gray-900">{step.title}</h3>
+                <p className="text-gray-600 text-center leading-relaxed">{step.desc}</p>
               </div>
-              <h3 className="text-xl font-bold mb-2">{step.title}</h3>
-              <p className="text-gray-600">{step.desc}</p>
             </div>
           ))}
         </div>
 
-        <div className="mt-12 bg-white p-8 rounded-lg border border-gray-200">
-          <h3 className="text-lg font-bold mb-4">Example</h3>
-          <div className="grid md:grid-cols-2 gap-8">
+        <div className="bg-gray-50 border border-gray-200 rounded-xl p-8 md:p-12">
+          <h3 className="text-2xl font-bold mb-8 text-center">Example Workflow</h3>
+          <div className="grid md:grid-cols-3 gap-8">
             <div>
-              <p className="text-sm font-semibold text-gray-600 mb-2">You Upload:</p>
-              <pre className="bg-gray-100 p-4 rounded text-sm overflow-x-auto">
-name,company,role
-John Smith,TechCorp,VP Sales
-Jane Doe,StartupXYZ,CEO
-              </pre>
+              <label className="text-sm font-semibold text-gray-600 uppercase block mb-3">Step 1: Your CSV</label>
+              <div className="bg-white rounded-lg border border-gray-200 p-4">
+                <pre className="text-xs text-gray-700 overflow-x-auto font-mono">{`name,company,role
+John Smith,Acme,VP Sales
+Jane Doe,TechCo,CEO`}</pre>
+              </div>
             </div>
+
+            <div className="flex items-center justify-center">
+              <div className="text-gray-400 text-2xl font-bold">→</div>
+            </div>
+
             <div>
-              <p className="text-sm font-semibold text-gray-600 mb-2">You Get:</p>
-              <div className="bg-blue-50 p-4 rounded text-sm">
-                <p className="font-semibold mb-2">To: John Smith</p>
-                <p className="text-gray-700 text-xs leading-relaxed">
-                  Hi John,<br/>
-                  I noticed TechCorp is scaling their sales team. We help tech companies like yours reduce sales cycle by 40%.<br/>
-                  Worth a quick 15-min call?<br/>
-                  Best
-                </p>
+              <label className="text-sm font-semibold text-gray-600 uppercase block mb-3">Step 2–3: Generated Email</label>
+              <div className="bg-white rounded-lg border border-gray-200 p-4 text-sm text-gray-700 space-y-2">
+                <p><strong>To:</strong> John Smith</p>
+                <p className="text-xs text-gray-600">Acme • VP Sales</p>
+                <div className="border-t pt-2 mt-2">
+                  <p className="text-gray-600 leading-relaxed">
+                    Hi John, I noticed Acme is in the HR tech space. We help companies scale their recruiting. Worth a quick chat?
+                  </p>
+                </div>
               </div>
             </div>
           </div>
