@@ -8,6 +8,10 @@ import CTA from './components/CTA'
 import Footer from './components/Footer'
 import FAQ from './components/FAQ'
 import PrivacyTrust from './components/PrivacyTrust'
+import ROICalculator from './components/ROICalculator'
+import SocialProof from './components/SocialProof'
+import WorkflowSteps from './components/WorkflowSteps'
+import AIChat from './components/AIChat'
 
 export default function App() {
   const [showApp, setShowApp] = useState(false)
@@ -22,11 +26,15 @@ export default function App() {
       <Hero onGetStarted={() => setShowApp(true)} />
       <Features />
       <HowItWorks />
+      <WorkflowSteps />
+      <ROICalculator />
+      <SocialProof />
       <Pricing />
       <FAQ />
       <PrivacyTrust />
       <CTA onGetStarted={() => setShowApp(true)} />
       <Footer />
+      <AIChat />
     </div>
   )
 }
