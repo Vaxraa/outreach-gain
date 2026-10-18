@@ -1,9 +1,3 @@
-import Anthropic from "@anthropic-ai/sdk";
-
-const client = new Anthropic({
-  apiKey: process.env.CLAUDE_API_KEY,
-});
-
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
@@ -20,30 +14,19 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Max 100 leads per request" });
     }
 
-    const prompt = `You are a cold email expert. Generate personalized cold emails for each lead.
+    // Completely free fallback - no API call needed
+    const emails = leads.map((lead) => ({
+      name: lead.name,
+      company: lead.company,
+      role: lead.role,
+      email: `Hi ${lead.name},
 
-For each person, write a compelling, personalized cold email that:
-- Opens with something specific about them or their company
-- Mentions a relevant pain point or opportunity
-- Includes a clear call-to-action
-- Is 3-4 sentences max
-- Feels human, not robotic
+I came across your profile and thought of reaching out. At ${lead.company}, I imagine you're working on [relevant challenge]. We help teams like yours [solve/improve].
 
-Leads:
-${leads.map((l) => `- ${l.name}, ${l.role} at ${l.company}`).join("\n")}
+Would love a quick 15-min chat to explore if there's a fit.
 
-Return ONLY valid JSON array with no markdown:
-[{"name":"...","company":"...","role":"...","email":"..."}]`;
-
-    const message = await client.messages.create({
-      model: "claude-3-5-sonnet-20241022",
-      max_tokens: 2000,
-      messages: [{ role: "user", content: prompt }],
-    });
-
-    const content = message.content[0];
-    const jsonMatch = content.text.match(/\[[\s\S]*\]/);
-    const emails = JSON.parse(jsonMatch[0]);
+Best regards`,
+    }));
 
     res.status(200).json({ emails });
   } catch (error) {

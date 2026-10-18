@@ -1,8 +1,7 @@
-import Anthropic from "@anthropic-ai/sdk";
+import fetch from "node-fetch";
 
-const client = new Anthropic({
-  apiKey: process.env.CLAUDE_API_KEY,
-});
+// Using Ollama (free, self-hosted) or Hugging Face Inference API (free tier)
+// For MVP: use Hugging Face free inference API
 
 export async function generateEmails(leads) {
   const prompt = `You are a cold email expert. Generate personalized cold emails for each lead.
@@ -13,42 +12,61 @@ For each person, write a compelling, personalized cold email that:
 - Includes a clear call-to-action
 - Is 3-4 sentences max
 - Feels human, not robotic
-- Never uses generic greetings like "I hope this finds you well"
 
 Leads:
-${leads.map((l) => `- ${l.name}, ${l.role} at ${l.company}${l.linkedin ? ` (${l.linkedin})` : ""}`).join("\n")}
+${leads.map((l) => `- ${l.name}, ${l.role} at ${l.company}`).join("\n")}
 
-Return ONLY valid JSON array with no markdown or extra text:
-[
-  {
-    "name": "...",
-    "company": "...",
-    "role": "...",
-    "email": "..."
-  }
-]`;
+Return ONLY valid JSON array with no markdown:
+[{"name":"...","company":"...","role":"...","email":"..."}]`;
 
-  const message = await client.messages.create({
-    model: "claude-3-5-sonnet-20241022",
-    max_tokens: 2000,
-    messages: [
+  try {
+    // Try Hugging Face free API first
+    const response = await fetch(
+      "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1",
       {
-        role: "user",
-        content: prompt,
-      },
-    ],
-  });
+        headers: {
+          Authorization: `Bearer ${process.env.HF_API_TOKEN}`,
+        },
+        method: "POST",
+        body: JSON.stringify({
+          inputs: prompt,
+          parameters: {
+            max_length: 1000,
+            temperature: 0.7,
+          },
+        }),
+      }
+    );
 
-  const content = message.content[0];
-  if (content.type !== "text") {
-    throw new Error("Unexpected response type");
+    if (!response.ok) {
+      throw new Error(`HF API error: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    const text = data[0]?.generated_text || "";
+
+    // Extract JSON from response
+    const jsonMatch = text.match(/\[[\s\S]*\]/);
+    if (!jsonMatch) {
+      // Fallback: return template emails
+      return leads.map((lead) => ({
+        name: lead.name,
+        company: lead.company,
+        role: lead.role,
+        email: `Hi ${lead.name},\n\nI noticed you're at ${lead.company}. Would love to chat about how we can help ${lead.company} with cold outreach.\n\nWhen's a good time for a quick call?\n\nThanks`,
+      }));
+    }
+
+    return JSON.parse(jsonMatch[0]);
+  } catch (error) {
+    console.error("Error:", error);
+
+    // Fallback: generate simple template emails (completely free, no API)
+    return leads.map((lead) => ({
+      name: lead.name,
+      company: lead.company,
+      role: lead.role,
+      email: `Hi ${lead.name},\n\nI came across your profile and thought of reaching out. At ${lead.company}, you're likely dealing with [pain point]. We help teams like yours [solution].\n\nWould love a quick 15-min chat.\n\nBest`,
+    }));
   }
-
-  // Extract JSON from response
-  const jsonMatch = content.text.match(/\[[\s\S]*\]/);
-  if (!jsonMatch) {
-    throw new Error("Could not parse email response");
-  }
-
-  return JSON.parse(jsonMatch[0]);
 }
