@@ -1,19 +1,17 @@
-import { useState } from 'react'
-
 export default function Home({ onNavigate }) {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
       <header className="sticky top-0 bg-white border-b border-gray-200 z-50">
         <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-blue-600">OutreachGain</h1>
+          <h1 className="text-2xl font-bold text-blue-600 cursor-pointer hover:opacity-80 transition" onClick={() => onNavigate('home')}>OutreachGain</h1>
           <nav className="flex gap-6">
-            <button onClick={() => onNavigate('features')} className="text-gray-600 hover:text-gray-900 font-semibold">Features</button>
-            <button onClick={() => onNavigate('howItWorks')} className="text-gray-600 hover:text-gray-900 font-semibold">How It Works</button>
-            <button onClick={() => onNavigate('roi')} className="text-gray-600 hover:text-gray-900 font-semibold">ROI</button>
-            <button onClick={() => onNavigate('testimonials')} className="text-gray-600 hover:text-gray-900 font-semibold">Stories</button>
-            <button onClick={() => onNavigate('pricing')} className="text-gray-600 hover:text-gray-900 font-semibold">Pricing</button>
-            <button onClick={() => onNavigate('faq')} className="text-gray-600 hover:text-gray-900 font-semibold">FAQ</button>
+            <button onClick={() => onNavigate('features')} className="text-gray-600 hover:text-gray-900 font-semibold transition">Features</button>
+            <button onClick={() => onNavigate('howItWorks')} className="text-gray-600 hover:text-gray-900 font-semibold transition">How It Works</button>
+            <button onClick={() => onNavigate('roi')} className="text-gray-600 hover:text-gray-900 font-semibold transition">ROI</button>
+            <button onClick={() => onNavigate('testimonials')} className="text-gray-600 hover:text-gray-900 font-semibold transition">Stories</button>
+            <button onClick={() => onNavigate('pricing')} className="text-gray-600 hover:text-gray-900 font-semibold transition">Pricing</button>
+            <button onClick={() => onNavigate('faq')} className="text-gray-600 hover:text-gray-900 font-semibold transition">FAQ</button>
           </nav>
           <button
             onClick={() => onNavigate('generate')}
