@@ -156,12 +156,12 @@ function AppPage({ onBack }) {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="sticky top-0 bg-white border-b border-gray-200 z-40">
+      <div className="sticky top-0 bg-white border-b border-gray-200 z-40 shadow-sm">
         <div className="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
           <h1 className="text-xl font-bold text-gray-900">Generate Emails</h1>
           <button
             onClick={onBack}
-            className="text-gray-600 hover:text-gray-900 font-semibold"
+            className="text-gray-600 hover:text-gray-900 font-semibold transition"
           >
             ← Back to Home
           </button>
@@ -172,12 +172,12 @@ function AppPage({ onBack }) {
         <div className="flex gap-2 mb-8">
           {['upload', 'preview', 'results'].map((s, i) => (
             <div key={s} className="flex items-center gap-2">
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition ${
                 step === s ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
               }`}>
                 {i + 1}
               </div>
-              {i < 2 && <div className={`w-8 h-0.5 ${step !== 'upload' ? 'bg-blue-600' : 'bg-gray-200'}`}></div>}
+              {i < 2 && <div className={`w-8 h-0.5 transition ${step !== 'upload' ? 'bg-blue-600' : 'bg-gray-200'}`}></div>}
             </div>
           ))}
         </div>
